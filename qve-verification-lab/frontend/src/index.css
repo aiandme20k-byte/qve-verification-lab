@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d3d 100%);
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #00ccff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  color: #00ccff;
+}
+
+.language-toggle button {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #00ccff;
+  color: #1e1e2e;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.language-toggle button:hover {
+  background: #00ffff;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 250px;
+  background: rgba(0, 0, 0, 0.8);
+  border-right: 2px solid #00ccff;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.sidebar nav ul {
+  list-style: none;
+}
+
+.sidebar nav li {
+  margin: 0.5rem 0;
+}
+
+.sidebar nav button {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(0, 204, 255, 0.1);
+  color: #00ccff;
+  border: 1px solid #00ccff;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.sidebar nav button:hover,
+.sidebar nav button.active {
+  background: #00ccff;
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.importer-box,
+.dataset-list,
+.chat-claims,
+.physics-lab,
+.digital-twin {
+  background: rgba(45, 45, 61, 0.8);
+  border: 2px solid #00ccff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h3, h4, h5 {
+  color: #00ccff;
+  margin-bottom: 1rem;
+}
+
+input[type="file"],
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #00ccff;
+  color: #e0e0e0;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #00ffff;
+  background: rgba(0, 51, 51, 0.5);
+}
+
+label {
+  display: block;
+  margin: 0.75rem 0 0.25rem 0;
+  color: #00ccff;
+  font-weight: bold;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  background: #00ccff;
+  color: #1e1e2e;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+  margin: 0.5rem 0;
+}
+
+button:hover {
+  background: #00ffff;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background: #666666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+code {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  color: #00ffff;
+}
+
+.error {
+  color: #ff6b6b;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.warning {
+  color: #ffa500;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.note {
+  color: #ffa500;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.dataset-item,
+.claim-item {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 204, 255, 0.5);
+  padding: 1rem;
+  margin: 0.75rem 0;
+  border-radius: 4px;
+}
+
+.dataset-item strong,
+.claim-item h5 {
+  color: #00ffff;
+}
+
+.qc-results,
+.result {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+pre {
+  color: #00ff00;
+  font-size: 0.85rem;
+}
+
+.digital-twin canvas {
+  width: 100% !important;
+  height: 400px !important;
+  border-radius: 4px;
+  border: 1px solid #00ccff;
+  margin: 1rem 0;
+}
+
+.calculation-box {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 204, 255, 0.5);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.strict-note {
+  background: rgba(255, 165, 0, 0.2);
+  border-left: 4px solid #ffa500;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: #ffa500;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #00ccff;
+  }
+
+  .sidebar nav ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .sidebar nav li {
+    flex: 1;
+    margin: 0.25rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}

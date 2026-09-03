@@ -1,8 +1,112 @@
-import {useState} from "react";
-const gates=["A Instrumentation / Calibration","B Stability","C Repeatability","D Energy Closure","E Force / Momentum","F Independent Replication"];
-const nav=["Dashboard","Chat → Claims","Evidence Ledger","Run Intake","QC Console","Physics Lab","3D Digital Twin","Telemetry Replay","Evidence Report","Audit Log"];
-export default function App(){const [page,setPage]=useState("Dashboard"); const [mm,setMm]=useState(false);
-return <div className="app"><header><div><b>QVE VERIFICATION LAB</b><span className="badge">PROTOTYPE 1</span></div><button onClick={()=>setMm(!mm)}>{mm?"EN":"မြန်မာ"}</button></header>
-<div className="layout"><aside>{nav.map(n=><button className={page===n?"active":""} onClick={()=>setPage(n)} key={n}>{n}</button>)}</aside>
-<main><div className="title"><h1>{page}</h1><span className="concept">SIMULATION / CONCEPTUAL</span></div>
-{page==="Dashboard"?<><section className="hero"><h2>Evidence-first scientific workspace</h2><p>{mm?"အထောက်အထားမပြည့်စုံသေးပါက VERIFIED မပြုလုပ်ပါ။":"Claims are never verified from AI confidence, correlation, or visualization alone."}</p></section><section className="grid">{gates.map(g=><div className="card" key={g}><b>{g}</b><div className="pending">PENDING</div></div>)}</section><section className="card dataset"><h2>Live_Hardware_Stream_VNA_SQUID.csv</h2><p>Samples: 50 · Sampling: 2 Hz · Source: Imported Dataset</p><strong>Casimir ↔ Power: r = 0.546</strong><p className="warning">SOURCE / IMPORTED — NOT VERIFIED</p><small>Correlation ≠ causation. Source-reported anomaly explanations remain interpretations until independently supported.</small></section></>:<section className="card"><h2>{page}</h2><p>Prototype 1 module shell. Core evidence and deterministic analysis rules are enforced by the backend.</p></section>}</main></div></div>}
+import React from 'react'
+import { useStore } from './store'
+import { translations } from './i18n'
+import { DatasetImporter } from './components/DatasetImporter'
+import { DatasetList } from './components/DatasetList'
+import { ChatClaims } from './components/ChatClaims'
+import { PhysicsLab } from './components/PhysicsLab'
+import { DigitalTwin } from './components/DigitalTwin'
+
+const App: React.FC = () => {
+  const { activeTab, setActiveTab, datasets, addDataset, language, setLanguage } = useStore()
+  const t = translations[language]
+
+  const tabs = [
+    { id: 'dashboard', label: t.dashboard },
+    { id: 'chat', label: t.chat },
+    { id: 'evidence', label: t.evidence },
+    { id: 'intake', label: t.intake },
+    { id: 'qc', label: t.qc },
+    { id: 'physics', label: t.physics },
+    { id: 'twin', label: t.twin },
+    { id: 'replay', label: t.replay },
+    { id: 'report', label: t.report },
+    { id: 'audit', label: t.audit },
+  ]
+
+  return (
+    <div className="app">
+      <header className="header">
+        <h1>🔬 QVE Verification Lab — Prototype 1</h1>
+        <div className="language-toggle">
+          <button onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>EN</button>
+          <button onClick={() => setLanguage('my')} className={language === 'my' ? 'active' : ''}>MY</button>
+        </div>
+      </header>
+
+      <div className="main-container">
+        <aside className="sidebar">
+          <nav>
+            <ul>
+              {tabs.map((tab) => (
+                <li key={tab.id}>
+                  <button
+                    onClick={() => setActiveTab(tab.id)}
+                    className={activeTab === tab.id ? 'active' : ''}
+                  >
+                    {tab.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+
+        <main className="content">
+          <div className="strict-note">
+            {t.strictNote}
+          </div>
+
+          {activeTab === 'dashboard' && (
+            <div className="tab-content active">
+              <h2>Dashboard</h2>
+              <p>Welcome to QVE Verification Lab — Prototype 1</p>
+              <p>Scientific evidence ledger + deterministic analysis + 3D digital twin</p>
+              <p>✓ CSV and JSON import with SHA-256 hashing</p>
+              <p>✓ Quality control checks and analysis</p>
+              <p>✓ Evidence gates A-F for claim verification</p>
+              <p>✓ Physics calculations (Casimir, radiation momentum)</p>
+              <p>✓ 3D digital twin visualization (CONCEPTUAL / SIMULATION)</p>
+              <p>✓ Immutable audit logging</p>
+              <p>✓ Myanmar/English bilingual UI</p>
+            </div>
+          )}
+
+          {activeTab === 'intake' && (
+            <div className="tab-content active">
+              <DatasetImporter onSuccess={(data) => addDataset(data)} />
+              <DatasetList datasets={datasets} />
+            </div>
+          )}
+
+          {activeTab === 'chat' && (
+            <div className="tab-content active">
+              <ChatClaims />
+            </div>
+          )}
+
+          {activeTab === 'physics' && (
+            <div className="tab-content active">
+              <PhysicsLab />
+            </div>
+          )}
+
+          {activeTab === 'twin' && (
+            <div className="tab-content active">
+              <DigitalTwin />
+            </div>
+          )}
+
+          {(activeTab === 'evidence' || activeTab === 'qc' || activeTab === 'replay' || activeTab === 'report' || activeTab === 'audit') && (
+            <div className="tab-content active">
+              <h2>{t[activeTab as keyof typeof t] || activeTab}</h2>
+              <p>Feature under development</p>
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  )
+}
+
+export default App
